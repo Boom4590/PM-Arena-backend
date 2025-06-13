@@ -2,14 +2,15 @@ const { Pool } = require('pg');
 
 const pool = new Pool({
   user: 'postgres',
-  host: 'yamanote.proxy.rlwy.net',
+  host: 'yamabiko.proxy.rlwy.net',
   database: 'railway',
-  password: 'YAvyzPHdPaOjelzvmcpsJcCmeqqAyljL',
-  port: 25362,
+  password: 'AKvwoudfAsTPwLsTwuSAGEROavpuZirO',
+  port: 40139,
   ssl: {
     rejectUnauthorized: false,
   },
 });
+
 
 module.exports = pool;
 
