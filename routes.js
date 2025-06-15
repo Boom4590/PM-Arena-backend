@@ -85,26 +85,20 @@ router.delete('/admin/delete/:id', async (req, res) => {
   }
 });
 
-router.get('/admin/find_seat/:pubg_id', async (req, res) => {
-  const { pubg_id } = req.params;
-
+router.get('/admin/find_seats', async (req, res) => {
   try {
     const query = `
-      SELECT seat FROM participants
-      WHERE pubg_id = $1
+      SELECT nickname, pubg_id, seat FROM participants
     `;
-    const result = await pool.query(query, [pubg_id]);
+    const result = await pool.query(query);
 
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'Пользователь не найден' });
-    }
-
-    res.json({ seat: result.rows[0].seat });
+    res.json({ users: result.rows });
   } catch (error) {
-    console.error('Ошибка при поиске seat:', error);
+    console.error('Ошибка при получении списка пользователей:', error);
     res.status(500).json({ error: 'Ошибка сервера' });
   }
 });
+
 // Пример (Node.js + Express + PostgreSQL):
 router.post('/admin/topup', async (req, res) => {
   const { pubg_id, amount } = req.body;
